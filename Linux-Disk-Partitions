@@ -1,0 +1,156 @@
+Adding Disk and Creating Partitions in Ubuntu 16.04 or 18.04 Server:
+
+1. Add an additional 15GB drtive for the ubuntu server.
+2. Power on the server and check the drive is visible using "lsblk"
+3. For the new disk use fdisk and create three partitions.  3* 5GB
+4. Create filesystem on all the 3 drives using "mkfs.ext4".
+5. Create 3 folders and name it as 5GBFolder1, 2, 3.
+6. Mount the 3 partitions to the 3 folder and put some files in it.
+7. Reboot the server and check the data is visible or not.
+
+
+8. Edit /etc/fstab and mention the mounts there.  
+
+
+-Create on VM ware and install ubuntu os
+-Add 15GB on same operation system
+-open putty 
+-copy ur machine ip addresss "ifconfig"
+-putty :: ip ::192.168.1.1
+-root :: sudo su -
+-lsblk 
+-fdisk (format disk)
+-fdisk /dev/sdb is our created drive
+-m help
+
+-n new partitions
+-d delete
+-save
+
+-p print partion how many drive in 15gb folder
+-n create partition
+-p primary
+-1 part no
+default no need
+size : +5GB
+
+-p print partion how many drive in 15gb folder
+-n create partition
+-p primary
+-2 part no
+default no need
+size : +5GB
+
+-p print partion how many drive in 15gb folder
+-n create partition
+-p primary
+-3 part no
+default no need
+size : +4.9GB
+
+
+
+ -P view the disks 
+
+-w save(mandatory)
+
+-lsblk(three aprtitions created)
+
+4th point:
+
+
+-mkfs.ext4 /dev/sdb1(file system creation)
+
+-mkfs.ext4 /dev/sdb2
+-mkfs.ext4 /dev/sdb1
+
+5th point
+
+root:   mkdir /5GBFolder1
+		mkdir /5GBFolder2
+		mkdir /5GBFolder3
+		
+-ls
+
+6th point mount:
+
+-lsblk
+
+-mount /dev/sdb1 /5GBFolder1
+-mount /dev/sdb2 /5GBFolder2
+-mount /dev/sdb3 /5GBFolder3
+
+-df -h
+
+-cd /5GBFolder1
+-nano testfile1
+
+hello test file done by me
+
+ctrl+o
+ctrl+x
+save
+
+- cp testfile1 testfile2
+- cp testfile1 testfile3
+
+-cp testfile* /5GBFolder2
+-cp testfile* /5GBFolder2
+
+CHECK IT 3 FOLDERS FILE IS AVAILABLE OR NOT:
+
+-LL /5GBFolder1
+-LL /5GBFolder2
+-LL /5GBFolder3
+
+-Reboot
+
+ls /5gbfolder1
+ls /5gbfolder2
+ls /5gbfolder3
+
+no files are there in 3 folders why because all 3 filr there in memory
+
+how to resolve this problem
+
+
+
+8th point
+
+df -h
+
+current folders:
+
+/dev/sdb1	4.80	11M	1%	/5gbfolder1
+/dev/sdb1	4.80	11M	1%	/5gbfolder2
+/dev/sdb1	4.80	11M	1%	/5gbfolder3
+
+copy all three lines
+
+past it on:
+
+nano /etc/fstab
+
+past it on end line location
+
+defaluts link : google: /etc/fstab defaults
+
+/dev/sdb1 /5gbfolder1 default	0 0
+/dev/sdb1 /5gbfolder2 default	0 0
+/dev/sdb1 /5gbfolder3 default	0 0
+
+				(or)
+				
+/dev/sdb1 /5gbfolder1
+/dev/sdb1 /5gbfolder2
+/dev/sdb1 /5gbfolder3 
+
+-------save and reboot---------------
+checking:
+df -h
+ls /5gbfolder1
+ls /5gbfolder2
+ls /5gbfolder3
+
+Done working condition........................
+
